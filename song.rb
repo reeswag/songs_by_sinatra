@@ -15,8 +15,6 @@ class Song
     end
 end
 
-DataMapper.finalize
-
 get '/songs' do
     @songs = Song.all
     slim :songs
