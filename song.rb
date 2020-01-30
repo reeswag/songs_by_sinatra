@@ -2,11 +2,6 @@ require 'dm-core'
 require 'dm-migrations'
 require 'sinatra'
 
-configure :development do
-    DataMapper.setup(:default, "sqlite3://#{Dir.pwd}/development.db")
-end
-
-
 class Song
     include DataMapper::Resource
     property :id, Serial
