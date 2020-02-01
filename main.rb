@@ -25,7 +25,7 @@ helpers do
     end
 
     def current?(path='/')
-        (request.path==path || request.path==path+'/') ? "current" :nil
+        (request.path==path || request.path==path+'/') ? "current" : nil
     end
 end 
 
