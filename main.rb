@@ -23,6 +23,10 @@ helpers do
             "<link href=\"/#{stylesheet}.css\" media=\"screen, projection\" rel =\"stylesheet\" />"
         end.join   
     end
+
+    def current?(path='/')
+        (request.path==path || request.path==path+'/') ? "current" :nil
+    end
 end 
 
 DataMapper.finalize
