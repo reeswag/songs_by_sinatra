@@ -27,7 +27,15 @@ helpers do
     def current?(path='/')
         (request.path==path || request.path==path+'/') ? "current" : nil
     end
+
+    def set_title
+        @title ||= "Songs By Sinatra"
+    end
 end 
+
+before do
+    set_title
+end
 
 DataMapper.finalize
 
