@@ -1,6 +1,7 @@
 require 'sinatra'
 require 'slim'
 require 'sass'
+require 'sinatra/flash'
 require './song'
 
 configure do

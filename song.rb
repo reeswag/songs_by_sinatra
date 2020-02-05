@@ -54,17 +54,17 @@ get '/songs/:id/edit' do
 end
 
 post '/songs' do
-    create_song
+    flash[:notice] = "Song successfully added" if create_song
     redirect to("/songs/#{@song.id}")
 end
 
 put '/songs/:id' do
     song = find_song
-    song.update(params[:song])
+    flash[:notice] = "Song successfully updated" if song.update(params[:song])
     redirect to("/songs/#{song.id}")
 end
 
 delete '/songs/:id' do
-    find_song.destroy
+    flash[:notice] = "Song successfully deleted" if find_song.destroy
     redirect to("/songs")
 end
