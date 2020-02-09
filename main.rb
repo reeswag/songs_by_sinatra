@@ -13,10 +13,18 @@ end
 
 configure :development do
     DataMapper.setup(:default, "sqlite3://#{Dir.pwd}/development.db")
+    set :email_address => 'not_a_real_email@gmail.com',
+        :email_user_name => 'not_a_real_user_name',
+        :email_password => 'not_a_real_password',
+        :email_domain => 'localhost.localdomain'
 end
   
 configure :production do
     DataMapper.setup(:default, ENV["DATABASE_URL"])
+    set :email_address => 'smtp.sendgrid.net',
+        :email_user_name => ENV['SENDGRID_USERNAME'],
+        :email_password => ENV['SENDGRID_PASSWORD'],
+        :email_domain => 'heroku.com'
 end
 
 helpers do
