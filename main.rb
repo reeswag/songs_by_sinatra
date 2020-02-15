@@ -1,15 +1,10 @@
+require './sinatra/auth'
 require 'sinatra'
 require 'slim'
 require 'sass'
 require 'sinatra/flash'
 require 'pony'
 require './song'
-
-configure do
-    enable :sessions
-    set :username, 'frank'
-    set :password, 'sinatra'
-end
 
 configure :development do
     DataMapper.setup(:default, "sqlite3://#{Dir.pwd}/development.db")
@@ -91,24 +86,6 @@ end
 
 get '/get/hello' do
     "Hello #{session[:name]}"
-end
-
-get '/login' do 
-    slim :login
-end
-
-get '/logout' do 
-    session.clear
-    redirect to('/login')
-end
-
-post '/login' do
-    if params[:username] == settings.username && params[:password] == settings.password
-        session[:admin] = true
-        redirect to('/songs')
-    else
-        slim :login
-    end
 end
 
 post '/contact' do
