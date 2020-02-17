@@ -3,8 +3,8 @@ require 'slim'
 require 'sass'
 require 'sinatra/flash'
 require 'pony'
-require 'v8'
-require 'coffee-script'
+#require 'v8'
+#require 'coffee-script'
 require './song'
 require './sinatra/auth'
 
@@ -67,7 +67,7 @@ end
 DataMapper.finalize
 
 get('/styles.css'){ scss :styles } # This employs the sass helper to tell Sinatra to process this request using Sass using the styles file located within the views directory.
-get('/javascripts/application.js'){ coffee :application } # this employs the coffee helper method to tell Sinatra to process the request using CoffeeScript using the application file in the views directory.
+#get('/javascripts/application.js'){ coffee :application } # this employs the coffee helper method to tell Sinatra to process the request using CoffeeScript using the application file in the views directory.
 
 get '/' do
     slim :home

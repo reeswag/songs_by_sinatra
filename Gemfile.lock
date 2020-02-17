@@ -23,17 +23,22 @@ GEM
     dm-sqlite-adapter (1.2.0)
       dm-do-adapter (~> 1.2.0)
       do_sqlite3 (~> 0.10.6)
-    do_postgres (0.10.17-x86-mingw32)
+    do_postgres (0.10.17)
       data_objects (= 0.10.17)
-    do_sqlite3 (0.10.17-x86-mingw32)
+    do_sqlite3 (0.10.17)
       data_objects (= 0.10.17)
-    eventmachine (1.2.7-x86-mingw32)
+    eventmachine (1.2.7)
     execjs (2.7.0)
-    ffi (1.12.2-x86-mingw32)
+    ffi (1.12.2)
     libv8 (3.16.14.19)
+    mail (2.7.1)
+      mini_mime (>= 0.1.1)
+    mini_mime (1.0.2)
     mustermann (1.1.1)
       ruby2_keywords (~> 0.0.1)
-    pg (1.2.2-x86-mingw32)
+    pg (1.2.2)
+    pony (1.13.1)
+      mail (>= 2.0)
     public_suffix (4.0.3)
     rack (2.2.2)
     rack-protection (2.0.8.1)
@@ -53,6 +58,8 @@ GEM
       rack (~> 2.0)
       rack-protection (= 2.0.8.1)
       tilt (~> 2.0)
+    sinatra-flash (0.3.0)
+      sinatra (>= 1.0.0)
     slim (4.0.1)
       temple (>= 0.7.6, < 0.9)
       tilt (>= 2.0.6, < 2.1)
@@ -67,7 +74,7 @@ GEM
     tilt (2.0.10)
 
 PLATFORMS
-  x86-mingw32
+  ruby
 
 DEPENDENCIES
   coffee-script!
@@ -76,8 +83,10 @@ DEPENDENCIES
   dm-postgres-adapter!
   dm-sqlite-adapter!
   pg!
+  pony!
   sass!
   sinatra!
+  sinatra-flash!
   slim!
   therubyracer!
   thin!
