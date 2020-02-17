@@ -1,10 +1,12 @@
-require './sinatra/auth'
 require 'sinatra'
 require 'slim'
 require 'sass'
 require 'sinatra/flash'
 require 'pony'
+require 'v8'
+require 'coffee-script'
 require './song'
+require './sinatra/auth'
 
 configure :development do
     DataMapper.setup(:default, "sqlite3://#{Dir.pwd}/development.db")
@@ -23,10 +25,10 @@ configure :production do
 end
 
 helpers do
-    def css(*stylesheets)
+    def css(*stylesheets) # the * signifies that this function can take any number of arguments.
         stylesheets.map do |stylesheet|
-            "<link href=\"/#{stylesheet}.css\" media=\"screen, projection\" rel =\"stylesheet\" />"
-        end.join   
+            "<link href=\"/#{stylesheet}.css\" media=\"screen, projection\" rel =\"stylesheet\" />" # this generates
+        end.join # the .join here translates multiple inputs into a combined string file which can be injected into the .slim file. Without it we'd end up with an array of text files.    
     end
 
     def current?(path='/')
@@ -64,7 +66,8 @@ end
 
 DataMapper.finalize
 
-get('/styles.css'){ scss :styles }
+get('/styles.css'){ scss :styles } # This employs the sass helper to tell Sinatra to process this request using Sass using the styles file located within the views directory.
+get('/javascripts/application.js'){ coffee :application } # this employs the coffee helper method to tell Sinatra to process the request using CoffeeScript using the application file in the views directory.
 
 get '/' do
     slim :home
