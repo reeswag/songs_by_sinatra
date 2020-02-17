@@ -15,7 +15,7 @@ configure :development do
         :email_password => 'not_a_real_password',
         :email_domain => 'localhost.localdomain'
 end
-  a
+
 configure :production do
     DataMapper.setup(:default, ENV["DATABASE_URL"])
     set :email_address => 'smtp.sendgrid.net',
