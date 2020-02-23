@@ -101,4 +101,4 @@ not_found do
     slim :not_found
 end
 
-test no 2
+test no 3
