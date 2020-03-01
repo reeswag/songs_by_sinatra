@@ -8,7 +8,8 @@ class Song
     property :title, String
     property :lyrics, Text
     property :length, Integer
-    property :released_on, Date 
+    property :released_on, Date
+    property :likes, Integer, :default => 0  
 
     def released_on=date
         super Date.strptime(date, '%m/%d/%Y')
@@ -56,6 +57,13 @@ end
 post '/songs' do
     flash[:notice] = "Song successfully added" if create_song
     redirect to("/songs/#{@song.id}")
+end
+
+post '/songs/:id/like' do
+    @song = find_song
+    @song.likes = @song.likes.next # this increases the value of the integer by one
+    @song.save
+    redirect back
 end
 
 put '/songs/:id' do

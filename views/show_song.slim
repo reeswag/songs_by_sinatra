@@ -3,8 +3,12 @@ p Released Date: #{@song.released_on.strftime("%e %B %Y") if @song.released_on}
 - if @song.length
     p Length: #{@song.length/60} minutes #{@song.length%60} seconds
 - else
-    p Length:
+    p Length:== Sinatra has ended his set (crowd applauds)
 pre= @song.lyrics
+#like
+    == slim :like
+    form action="/songs/#{@song.id}/like" method="POST"
+        input type="submit" value="Like"
 p <a href="/songs">back to songs index</a>
 p <a href="/songs/#{@song.id}/edit">edit this song</a>
 form action="/songs/#{@song.id}" method="POST"
