@@ -63,7 +63,8 @@ post '/songs/:id/like' do
     @song = find_song
     @song.likes = @song.likes.next # this increases the value of the integer by one
     @song.save
-    redirect back
+    redirect to"/songs/#{@song.id}" unless request.xhr? # this only redirects if the request was initiated by the user via Ajax.
+    slim:like, :layout => false
 end
 
 put '/songs/:id' do
