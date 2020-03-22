@@ -7,8 +7,10 @@ require 'v8'
 require 'coffee-script'
 require './song'
 require './sinatra/auth'
+require './asset-handler'
 
 class Website < Sinatra::Base
+    use AssetHandler
     register Sinatra::Auth
     register Sinatra::Flash 
 
@@ -22,20 +24,24 @@ class Website < Sinatra::Base
         set :email_address => 'not_a_real_email@gmail.com',
             :email_user_name => 'not_a_real_user_name',
             :email_password => 'not_a_real_password',
-            :email_domain => 'localhost.localdomain'
+            :email_domain => 'localhost.localdomain',
+            :start_time => Time.now 
     end
 
     configure :production do
         set :email_address => 'smtp.sendgrid.net',
             :email_user_name => ENV['SENDGRID_USERNAME'],
             :email_password => ENV['SENDGRID_PASSWORD'],
-            :email_domain => 'heroku.com'
+            :email_domain => 'heroku.com',
+            :start_time => Time.now
     end
 
     before do
+        last_modified settings.start_time
+        etag settings.start_time.to_s
+        cache_control :public, :must_revalidate  # makes the client confirm if there have been any changes to each web page since the start of the application before making a request. 
         set_title # this assigns the title before loading each view
     end
-
 
     def css(*stylesheets) # the * signifies that this function can take any number of arguments.
         stylesheets.map do |stylesheet|
@@ -71,8 +77,8 @@ class Website < Sinatra::Base
         )
     end 
 
-    get('/styles.css'){ scss :styles } # This employs the sass helper to tell Sinatra to process this request using Sass using the styles file located within the views directory.
-    get('/javascripts/application.js'){ coffee :application } # this employs the coffee helper method to tell Sinatra to process the request using CoffeeScript using the application file in the views directory.
+    # get('/styles.css'){ scss :styles } # This employs the sass helper to tell Sinatra to process this request using Sass using the styles file located within the views directory. - moved to asset-handler.rb
+    # get('/javascripts/application.js'){ coffee :application } # this employs the coffee helper method to tell Sinatra to process the request using CoffeeScript using the application file in the views directory. - moved to asset-handler.rb
 
     get '/' do
         slim :home
